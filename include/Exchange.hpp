@@ -8,18 +8,6 @@
 /// of the Exchange class and the
 /// related Limit_Order struct
 ///
-//===-----------------------------===//
-
-#ifndef EXCHANGE_HPP
-#define EXCHANGE_HPP
-
-#include <chrono>
-#include <ctime>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <set>
-
 /// \brief
 /// Follows a FIFO Exchange
 ///
@@ -44,6 +32,17 @@
 /// available quantity" and trades with available quantity.
 ///
 /// Input -1 to end the exchange
+//===-----------------------------===//
+
+#ifndef EXCHANGE_HPP
+#define EXCHANGE_HPP
+
+#include <chrono>
+#include <ctime>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <set>
 
 // global scope typedef for maintaining time durations
 typedef int64_t time_dur;
