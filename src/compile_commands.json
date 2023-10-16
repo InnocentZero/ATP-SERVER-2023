@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/innocentzero/Isfaruls_Home/Projects/atp_server/build/src",
+  "command": "/usr/bin/c++  -I/home/innocentzero/Isfaruls_Home/Projects/atp_server/include  -Wall -Wextra -Wpedantic -o CMakeFiles/Exchange.dir/Exchange.cpp.o -c /home/innocentzero/Isfaruls_Home/Projects/atp_server/src/Exchange.cpp",
+  "file": "/home/innocentzero/Isfaruls_Home/Projects/atp_server/src/Exchange.cpp",
+  "output": "src/CMakeFiles/Exchange.dir/Exchange.cpp.o"
+}
+]
