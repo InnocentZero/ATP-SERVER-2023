@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['limit_5forder_0',['Limit_Order',['../structLimit__Order.html#af5bfd909174decf9a8f2305a870ef5f0',1,'Limit_Order']]]
+  ['get_5ftime_0',['Get_Time',['../Exchange_8cpp.html#a26c1c6c4784e8422d534ef17e0e19a26',1,'Get_Time():&#160;Exchange.cpp'],['../Exchange_8hpp.html#a26c1c6c4784e8422d534ef17e0e19a26',1,'Get_Time():&#160;Exchange.cpp']]]
 ];

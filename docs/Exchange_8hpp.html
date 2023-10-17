@@ -84,9 +84,6 @@ $(function() {
 <p>Follows a FIFO <a class="el" href="classExchange.html">Exchange</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;ctime&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 </div>
@@ -101,17 +98,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a68d529aabe19a786c9932a01ee07c808"><td class="memItemLeft" align="right" valign="top">typedef int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a></td></tr>
-<tr class="separator:a68d529aabe19a786c9932a01ee07c808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9221e25e7e6cf17d7bcd9059dc7a67"><td class="memItemLeft" align="right" valign="top">typedef std::chrono::time_point&lt; std::chrono::system_clock &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a></td></tr>
+<tr class="memdesc:a3a9221e25e7e6cf17d7bcd9059dc7a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">global scope typedef for maintaining timepoints  <br /></td></tr>
+<tr class="separator:a3a9221e25e7e6cf17d7bcd9059dc7a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a913ebaa4caf1ed554e6671f3d757a10f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8hpp.html#a913ebaa4caf1ed554e6671f3d757a10f">Start_Clock</a> ()</td></tr>
 <tr class="memdesc:a913ebaa4caf1ed554e6671f3d757a10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets global timestamp to 0;.  <br /></td></tr>
 <tr class="separator:a913ebaa4caf1ed554e6671f3d757a10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adda278fcdb2794fb604f143bf98abc4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8hpp.html#adda278fcdb2794fb604f143bf98abc4d">Get_Time</a> ()</td></tr>
-<tr class="memdesc:adda278fcdb2794fb604f143bf98abc4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time since the clock was started.  <br /></td></tr>
-<tr class="separator:adda278fcdb2794fb604f143bf98abc4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c1c6c4784e8422d534ef17e0e19a26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8hpp.html#a26c1c6c4784e8422d534ef17e0e19a26">Get_Time</a> ()</td></tr>
+<tr class="memdesc:a26c1c6c4784e8422d534ef17e0e19a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time since the clock was started.  <br /></td></tr>
+<tr class="separator:a26c1c6c4784e8422d534ef17e0e19a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Follows a FIFO <a class="el" href="classExchange.html">Exchange</a>. </p>
@@ -131,29 +129,31 @@ Functions</h2></td></tr>
 available quantity" and trades with available quantity.</p>
 <p>Input -1 to end the exchange </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a68d529aabe19a786c9932a01ee07c808" name="a68d529aabe19a786c9932a01ee07c808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68d529aabe19a786c9932a01ee07c808">&#9670;&#160;</a></span>time_dur</h2>
+<a id="a3a9221e25e7e6cf17d7bcd9059dc7a67" name="a3a9221e25e7e6cf17d7bcd9059dc7a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a9221e25e7e6cf17d7bcd9059dc7a67">&#9670;&#160;</a></span>t_point</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int64_t <a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a></td>
+          <td class="memname">typedef std::chrono::time_point&lt;std::chrono::system_clock&gt; <a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>global scope typedef for maintaining timepoints </p>
+
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="adda278fcdb2794fb604f143bf98abc4d" name="adda278fcdb2794fb604f143bf98abc4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adda278fcdb2794fb604f143bf98abc4d">&#9670;&#160;</a></span>Get_Time()</h2>
+<a id="a26c1c6c4784e8422d534ef17e0e19a26" name="a26c1c6c4784e8422d534ef17e0e19a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c1c6c4784e8422d534ef17e0e19a26">&#9670;&#160;</a></span>Get_Time()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a> Get_Time </td>
+          <td class="memname"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a> Get_Time </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

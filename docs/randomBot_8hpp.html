@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ATP Server: Member List</title>
+<title>ATP Server: include/randomBot.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,21 +67,66 @@ $(function() {
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Limit_Order Member List</div></div>
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">randomBot.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="structLimit__Order.html">Limit_Order</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="structLimit__Order.html#a44899461bfcddc28a8241fe6cb399f6a">buy</a></td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="structLimit__Order.html#a664607972105d9e738a9ca99d1f03c80">Limit_Order</a>(bool buy, int64_t price, int64_t quantity, t_point time)</td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="structLimit__Order.html#a9b6f7ffc31b2b6db469c8b9668493723">operator&lt;</a>(const Limit_Order &amp;other) const</td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="structLimit__Order.html#a6b0afac599a363f554c4c001c9b96214">price</a></td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="structLimit__Order.html#a1c00de4629ba15c891036574faaee54a">quantity</a></td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="structLimit__Order.html#a551a6878590569795003314bc9a7159c">time</a></td><td class="entry"><a class="el" href="structLimit__Order.html">Limit_Order</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Usage:  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;fstream&gt;</code><br />
+</div>
+<p><a href="randomBot_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a30d986f9d79095b7a4cbee95f2ced752"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="randomBot_8hpp.html#a30d986f9d79095b7a4cbee95f2ced752">randomOrder</a> (std::ostream &amp;os)</td></tr>
+<tr class="separator:a30d986f9d79095b7a4cbee95f2ced752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Usage: </p>
+<p>This is used to generate values for <code>filename</code> to take as input. An order with randomized values is generated at regular intervals. These outputs can be written into a file (“output.txt”) or taken by <code>filename</code> directly</p>
+<div class="fragment"> </div><!-- fragment --> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a30d986f9d79095b7a4cbee95f2ced752" name="a30d986f9d79095b7a4cbee95f2ced752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30d986f9d79095b7a4cbee95f2ced752">&#9670;&#160;</a></span>randomOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; randomOrder </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Generates a sample order of the format: <code>N X P Q</code> Where:</p><ul>
+<li>N:<ul>
+<li>0 for market order</li>
+<li>1 for limit order</li>
+</ul>
+</li>
+<li>X:<ul>
+<li>0 for buying</li>
+<li>1 for selling</li>
+</ul>
+</li>
+<li>P: the price (100 &lt; P &lt; 200)</li>
+<li>Q the quantity (1 &lt; Q &lt; 10) </li>
+</ul>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

@@ -81,7 +81,6 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="Exchange_8hpp_source.html">Exchange.hpp</a>&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;ctime&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
@@ -92,26 +91,26 @@ Functions</h2></td></tr>
 <tr class="memitem:a913ebaa4caf1ed554e6671f3d757a10f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#a913ebaa4caf1ed554e6671f3d757a10f">Start_Clock</a> ()</td></tr>
 <tr class="memdesc:a913ebaa4caf1ed554e6671f3d757a10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets global timestamp to 0;.  <br /></td></tr>
 <tr class="separator:a913ebaa4caf1ed554e6671f3d757a10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adda278fcdb2794fb604f143bf98abc4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#adda278fcdb2794fb604f143bf98abc4d">Get_Time</a> ()</td></tr>
-<tr class="memdesc:adda278fcdb2794fb604f143bf98abc4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time since the clock was started.  <br /></td></tr>
-<tr class="separator:adda278fcdb2794fb604f143bf98abc4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c1c6c4784e8422d534ef17e0e19a26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#a26c1c6c4784e8422d534ef17e0e19a26">Get_Time</a> ()</td></tr>
+<tr class="memdesc:a26c1c6c4784e8422d534ef17e0e19a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time since the clock was started.  <br /></td></tr>
+<tr class="separator:a26c1c6c4784e8422d534ef17e0e19a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2dd7acf03bafcf7953d4b876085ccbfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#a2dd7acf03bafcf7953d4b876085ccbfa">time_of_start_of_exchange</a> = 0</td></tr>
-<tr class="separator:a2dd7acf03bafcf7953d4b876085ccbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeeb02b5805d5c97ae6ee1c735476970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Exchange_8cpp.html#adeeb02b5805d5c97ae6ee1c735476970">time_of_start_of_exchange</a></td></tr>
+<tr class="separator:adeeb02b5805d5c97ae6ee1c735476970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="adda278fcdb2794fb604f143bf98abc4d" name="adda278fcdb2794fb604f143bf98abc4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adda278fcdb2794fb604f143bf98abc4d">&#9670;&#160;</a></span>Get_Time()</h2>
+<a id="a26c1c6c4784e8422d534ef17e0e19a26" name="a26c1c6c4784e8422d534ef17e0e19a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c1c6c4784e8422d534ef17e0e19a26">&#9670;&#160;</a></span>Get_Time()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a> Get_Time </td>
+          <td class="memname"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a> Get_Time </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -160,14 +159,14 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a2dd7acf03bafcf7953d4b876085ccbfa" name="a2dd7acf03bafcf7953d4b876085ccbfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dd7acf03bafcf7953d4b876085ccbfa">&#9670;&#160;</a></span>time_of_start_of_exchange</h2>
+<a id="adeeb02b5805d5c97ae6ee1c735476970" name="adeeb02b5805d5c97ae6ee1c735476970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeeb02b5805d5c97ae6ee1c735476970">&#9670;&#160;</a></span>time_of_start_of_exchange</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="Exchange_8hpp.html#a68d529aabe19a786c9932a01ee07c808">time_dur</a> time_of_start_of_exchange = 0</td>
+          <td class="memname"><a class="el" href="Exchange_8hpp.html#a3a9221e25e7e6cf17d7bcd9059dc7a67">t_point</a> time_of_start_of_exchange</td>
         </tr>
       </table>
 </div><div class="memdoc">
