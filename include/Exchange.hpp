@@ -38,20 +38,17 @@
 #define EXCHANGE_HPP
 
 #include <chrono>
-#include <ctime>
-#include <fstream>
-#include <iostream>
 #include <map>
 #include <set>
 
-// global scope typedef for maintaining time durations
-typedef int64_t time_dur;
+/// global scope typedef for maintaining timepoints
+typedef std::chrono::time_point<std::chrono::system_clock> t_point;
 
 /// Sets global timestamp to 0;
 void Start_Clock();
 
 /// Returns the current time since the clock was started.
-time_dur Get_Time();
+t_point Get_Time();
 
 /// Stores a limit order
 ///
@@ -62,8 +59,8 @@ time_dur Get_Time();
 struct Limit_Order {
     bool buy; // true -> buy, false -> sell
     int64_t price, quantity;
-    time_dur time;
-    Limit_Order(bool buy, int64_t price, int64_t quantity, time_dur time);
+    t_point time;
+    Limit_Order(bool buy, int64_t price, int64_t quantity, t_point time);
 
     // Comparator
     bool operator<(const Limit_Order &other) const;
@@ -117,9 +114,9 @@ class Exchange {
     /// \param buy kind of order. If `true`, it is a buy order, else a sell
     /// order.
     void Add_Limit_Order(bool buy, int64_t price, int64_t quantity,
-                         int64_t time);
+                         t_point time);
 
-    void Match(bool buy, int64_t price, int64_t quantity, int64_t time);
+    void Match(bool buy, int64_t price, int64_t quantity, t_point time);
 
     Exchange();
     Exchange(Exchange &&) = default;

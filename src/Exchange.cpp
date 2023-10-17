@@ -1,31 +1,24 @@
 #include "Exchange.hpp"
 #include <chrono>
-#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <set>
 
-time_dur time_of_start_of_exchange = 0;
+t_point time_of_start_of_exchange;
 
 void Start_Clock() {
     using namespace std::chrono;
-    time_of_start_of_exchange =
-        duration_cast<milliseconds>(
-            high_resolution_clock::now().time_since_epoch())
-            .count();
+    time_of_start_of_exchange = high_resolution_clock::now();
 }
 
-time_dur Get_Time() {
+t_point Get_Time() {
     using namespace std::chrono;
-    auto time = duration_cast<milliseconds>(
-                    high_resolution_clock::now().time_since_epoch())
-                    .count();
-    return (time - time_of_start_of_exchange);
+    return high_resolution_clock::now();
 }
 
 Limit_Order::Limit_Order(bool buy, int64_t price, int64_t quantity,
-                         time_dur time) {
+                         t_point time) {
     this->buy = buy;
     this->price = price;
     this->quantity = quantity;
@@ -46,9 +39,10 @@ bool Limit_Order::operator<(const Limit_Order &other) const {
     }
 }
 void Exchange::Broadcast(int64_t fill_price, int64_t fill_quantity) {
-    std::cout << Get_Time() << "\t" << ask_price << "\t" << ask_quantity << "\t"
-              << bid_price << "\t" << bid_quantity << "\t" << fill_price << "\t"
-              << fill_quantity << "\n";
+    std::cout << Get_Time().time_since_epoch().count() << "\t" << ask_price
+              << "\t" << ask_quantity << "\t" << bid_price << "\t"
+              << bid_quantity << "\t" << fill_price << "\t" << fill_quantity
+              << "\n";
 }
 void Exchange::Update_Market_Values() {
     if (buy_orders.empty()) {
@@ -70,13 +64,14 @@ void Exchange::Update_Market_Values() {
     }
 }
 void Exchange::Broadcast() {
-    std::cout << Get_Time() << "\t" << ask_price << "\t" << ask_quantity << "\t"
-              << bid_price << "\t" << bid_quantity << "\n";
+    std::cout << Get_Time().time_since_epoch().count() << "\t" << ask_price
+              << "\t" << ask_quantity << "\t" << bid_price << "\t"
+              << bid_quantity << "\n";
 }
 
 void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
-    int64_t fill_price = -1, fill_quantity = 0, temp_quantity, current_quantity,
-            temp_time;
+    int64_t fill_price = -1, fill_quantity = 0, temp_quantity, current_quantity;
+    t_point temp_time;
     if (buy) {
         if (quantity > total_quantity_ask) {
             quantity = total_quantity_ask;
@@ -152,7 +147,7 @@ void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
 }
 
 void Exchange::Add_Limit_Order(bool buy, int64_t price, int64_t quantity,
-                               int64_t time) {
+                               t_point time) {
     bool broadcast = false;
     if (buy) {
         if (price >= ask_price) {
@@ -180,9 +175,9 @@ void Exchange::Add_Limit_Order(bool buy, int64_t price, int64_t quantity,
         Broadcast();
     }
 }
-void Exchange::Match(bool buy, int64_t price, int64_t quantity, int64_t time) {
-    int64_t fill_price = -1, fill_quantity = 0, temp_quantity, current_quantity,
-            temp_time;
+void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
+    int64_t fill_price = -1, fill_quantity = 0, temp_quantity, current_quantity;
+    t_point temp_time;
 
     if (buy) {
         while (!sell_orders.empty() && quantity > 0) {
@@ -267,8 +262,11 @@ Exchange::Exchange() {
     std::ifstream fin("Pending_Orders.txt");
     while (fin) {
         bool buy;
-        int64_t price, quantity, time;
-        fin >> buy >> price >> quantity >> time;
+        int64_t price, quantity, time_;
+
+        fin >> buy >> price >> quantity >> time_;
+        using namespace std::chrono;
+        t_point time{high_resolution_clock::duration(time_)};
         if (fin)
             Add_Limit_Order(buy, price, quantity, time);
     }
