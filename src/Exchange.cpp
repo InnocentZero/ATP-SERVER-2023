@@ -1,9 +1,6 @@
 #include "Exchange.hpp"
-#include <chrono>
 #include <fstream>
 #include <iostream>
-#include <map>
-#include <set>
 
 t_point time_of_start_of_exchange;
 
@@ -27,23 +24,51 @@ Limit_Order::Limit_Order(bool buy, int64_t price, int64_t quantity,
 
 bool Limit_Order::operator<(const Limit_Order &other) const {
     if (buy) {
-        if (price != other.price)
+        if (price != other.price) {
             return price > other.price;
-        else
+        } else {
             return time < other.time;
+        }
     } else {
-        if (price != other.price)
+        if (price != other.price) {
             return price < other.price;
-        else
+        } else {
             return time < other.time;
+        }
     }
 }
+void Exchange::Broadcast(Broad b) {
+    std::ofstream fout("Broadcasts.txt", std::ios::app);
+    fout << Get_Time().time_since_epoch().count() << "," << b.ask_price << ","
+         << b.ask_quantity << "," << b.bid_price << "," << b.bid_quantity << ","
+         << b.fill_price << "," << b.fill_quantity << "\n";
+    fout.close();
+}
+
+#ifdef DEBUG
 void Exchange::Broadcast(int64_t fill_price, int64_t fill_quantity) {
     std::cout << Get_Time().time_since_epoch().count() << "\t" << ask_price
               << "\t" << ask_quantity << "\t" << bid_price << "\t"
               << bid_quantity << "\t" << fill_price << "\t" << fill_quantity
               << "\n";
 }
+void Exchange::Broadcast() {
+    std::cout << Get_Time().time_since_epoch().count() << "\t" << ask_price
+              << "\t" << ask_quantity << "\t" << bid_price << "\t"
+              << bid_quantity << "\n";
+}
+#endif // DEBUG
+
+void Exchange::Broadcaster() {
+    while (true) {
+        if (!broadcast_queue.empty()) {
+            auto &&broad = broadcast_queue.front();
+            broadcast_queue.pop();
+            Broadcast(broad);
+        }
+    }
+}
+
 void Exchange::Update_Market_Values() {
     if (buy_orders.empty()) {
         bid_price = -1;
@@ -63,12 +88,6 @@ void Exchange::Update_Market_Values() {
         ask_quantity = ask_prices[ask_price];
     }
 }
-void Exchange::Broadcast() {
-    std::cout << Get_Time().time_since_epoch().count() << "\t" << ask_price
-              << "\t" << ask_quantity << "\t" << bid_price << "\t"
-              << bid_quantity << "\n";
-}
-
 void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
     int64_t fill_price = -1, fill_quantity = 0, temp_quantity, current_quantity;
     t_point temp_time;
@@ -95,7 +114,9 @@ void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
                 Update_Market_Values();
                 if (ask_prices[fill_price] == 0) {
                     ask_prices.erase(fill_price);
-                    Broadcast(fill_price, fill_quantity);
+                    broadcast_queue.push(Broad(ask_price, ask_quantity,
+                                               bid_price, bid_quantity,
+                                               fill_price, fill_quantity));
                     fill_quantity = 0;
                 }
             } else {
@@ -105,8 +126,14 @@ void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
                 Update_Market_Values();
             }
         }
-        if (fill_quantity > 0)
+        if (fill_quantity > 0) {
+            broadcast_queue.push(Broad(ask_price, ask_quantity, bid_price,
+                                       bid_quantity, fill_price,
+                                       fill_quantity));
+#ifdef DEBUG
             Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
+        }
     } else {
         if (quantity > total_quantity_bid) {
             quantity = total_quantity_bid;
@@ -130,7 +157,12 @@ void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
                 Update_Market_Values();
                 if (bid_prices[fill_price] == 0) {
                     bid_prices.erase(fill_price);
+                    broadcast_queue.push(Broad(ask_price, ask_quantity,
+                                               bid_price, bid_quantity,
+                                               fill_price, fill_quantity));
+#ifdef DEBUG
                     Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
                     fill_quantity = 0;
                 }
             } else {
@@ -141,8 +173,14 @@ void Exchange::Fill_Market_Order(bool buy, int64_t quantity) {
                 Update_Market_Values();
             }
         }
-        if (fill_quantity > 0)
+        if (fill_quantity > 0) {
+            broadcast_queue.push(Broad(ask_price, ask_quantity, bid_price,
+                                       bid_quantity, fill_price,
+                                       fill_quantity));
+#ifdef DEBUG
             Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
+        }
     }
 }
 
@@ -157,8 +195,9 @@ void Exchange::Add_Limit_Order(bool buy, int64_t price, int64_t quantity,
         buy_orders.insert(Limit_Order(buy, price, quantity, time));
         bid_prices[price] += quantity;
         total_quantity_bid += quantity;
-        if (price >= bid_price)
+        if (price >= bid_price) {
             broadcast = true;
+        }
     } else {
         if (price <= bid_price) {
             Match(buy, price, quantity, time);
@@ -167,12 +206,17 @@ void Exchange::Add_Limit_Order(bool buy, int64_t price, int64_t quantity,
         sell_orders.insert(Limit_Order(buy, price, quantity, time));
         ask_prices[price] += quantity;
         total_quantity_ask += quantity;
-        if (price <= ask_price)
+        if (price <= ask_price) {
             broadcast = true;
+        }
     }
     if (broadcast) {
         Update_Market_Values();
-        Broadcast();
+        broadcast_queue.push(
+            Broad(ask_price, ask_quantity, bid_price, bid_quantity, -1, -1));
+#ifdef DEBUG
+        Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
     }
 }
 void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
@@ -182,8 +226,9 @@ void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
     if (buy) {
         while (!sell_orders.empty() && quantity > 0) {
             auto it = sell_orders.begin();
-            if (it->price > price)
+            if (it->price > price) {
                 break;
+            }
             fill_price = it->price;
             temp_time = it->time;
             current_quantity = it->quantity;
@@ -198,7 +243,13 @@ void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
                 Update_Market_Values();
                 if (ask_prices[fill_price] == 0) {
                     ask_prices.erase(fill_price);
+                    Update_Market_Values();
+                    broadcast_queue.push(Broad(ask_price, ask_quantity,
+                                               bid_price, bid_quantity,
+                                               fill_price, fill_quantity));
+#ifdef DEBUG
                     Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
                     fill_quantity = 0;
                 }
             } else {
@@ -209,15 +260,22 @@ void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
                 Update_Market_Values();
             }
         }
-        if (quantity > 0)
+        if (quantity > 0) {
             Add_Limit_Order(buy, price, quantity, time);
-        else if (fill_quantity > 0)
+        } else if (fill_quantity > 0) {
+            broadcast_queue.push(Broad(ask_price, ask_quantity, bid_price,
+                                       bid_quantity, fill_price,
+                                       fill_quantity));
+#ifdef DEBUG
             Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
+        }
     } else {
         while (!buy_orders.empty() && quantity > 0) {
             auto it = buy_orders.begin();
-            if (it->price < price)
+            if (it->price < price) {
                 break;
+            }
             fill_price = it->price;
             temp_time = it->time;
             current_quantity = it->quantity;
@@ -232,7 +290,13 @@ void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
                 Update_Market_Values();
                 if (bid_prices[fill_price] == 0) {
                     bid_prices.erase(fill_price);
+                    Update_Market_Values();
+                    broadcast_queue.push(Broad(ask_price, ask_quantity,
+                                               bid_price, bid_quantity,
+                                               fill_price, fill_quantity));
+#ifdef DEBUG
                     Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
                     fill_quantity = 0;
                 }
             } else {
@@ -243,10 +307,16 @@ void Exchange::Match(bool buy, int64_t price, int64_t quantity, t_point time) {
                 Update_Market_Values();
             }
         }
-        if (quantity > 0)
+        if (quantity > 0) {
             Add_Limit_Order(buy, price, quantity, time);
-        else if (fill_quantity > 0)
+        } else if (fill_quantity > 0) {
+            broadcast_queue.push(Broad(ask_price, ask_quantity, bid_price,
+                                       bid_quantity, fill_price,
+                                       fill_quantity));
+#ifdef DEBUG
             Broadcast(fill_price, fill_quantity);
+#endif // DEBUG
+        }
     }
 }
 
@@ -267,8 +337,9 @@ Exchange::Exchange() {
         fin >> buy >> price >> quantity >> time_;
         using namespace std::chrono;
         t_point time{high_resolution_clock::duration(time_)};
-        if (fin)
+        if (fin) {
             Add_Limit_Order(buy, price, quantity, time);
+        }
     }
     fin.close();
 }
@@ -283,12 +354,14 @@ Exchange::~Exchange() {
           " " << ask_quantity
               << '\n';
     std::ofstream fout("Pending_Orders.txt");
-    for (auto it : buy_orders)
+    for (auto it : buy_orders) {
         fout << it.buy << "\t" << it.price << "\t" << it.quantity << "\t"
              << it.time << '\n';
-    for (auto it : sell_orders)
+    }
+    for (auto it : sell_orders) {
         fout << it.buy << "\t" << it.price << "\t" << it.quantity << "\t"
              << it.time << '\n';
+    }
     fout.close();
 #endif // DEBUG
     buy_orders.clear();
@@ -297,23 +370,24 @@ Exchange::~Exchange() {
     bid_prices.clear();
 }
 
-int main() {
-    Start_Clock();
-    Exchange exchange;
-    while (true) {
-        short int order_type;
-        std::cin >> order_type;
-        if (order_type == -1)
-            break;
-        bool buy;
-        int64_t price, quantity;
-        if (order_type == 0) {
-            std::cin >> buy >> price >> quantity;
-            exchange.Add_Limit_Order(buy, price, quantity, Get_Time());
-        } else {
-            std::cin >> buy >> quantity;
-            exchange.Fill_Market_Order(buy, quantity);
-        }
-    }
-    return 0;
-}
+// int main() {
+//     Start_Clock();
+//     Exchange exchange;
+//     while (true) {
+//         short int order_type;
+//         std::cin >> order_type;
+//         if (order_type == -1) {
+//             break;
+//         }
+//         bool buy;
+//         int64_t price, quantity;
+//         if (order_type == 0) {
+//             std::cin >> buy >> price >> quantity;
+//             exchange.Add_Limit_Order(buy, price, quantity, Get_Time());
+//         } else {
+//             std::cin >> buy >> quantity;
+//             exchange.Fill_Market_Order(buy, quantity);
+//         }
+//     }
+//     return 0;
+// }

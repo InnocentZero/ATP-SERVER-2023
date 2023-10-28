@@ -6,7 +6,7 @@
 /// \file
 /// This file contains the declarations
 /// of the Exchange class and the
-/// related Limit_Order struct
+/// related Limit_Order and Broadcast struct
 ///
 /// \brief
 /// Follows a FIFO Exchange
@@ -38,7 +38,9 @@
 #define EXCHANGE_HPP
 
 #include <chrono>
+#include <cstdint>
 #include <map>
+#include <queue>
 #include <set>
 
 /// global scope typedef for maintaining timepoints
@@ -49,6 +51,14 @@ void Start_Clock();
 
 /// Returns the current time since the clock was started.
 t_point Get_Time();
+
+/// Stores a broadcast's data
+struct Broad {
+    long double ask_price, bid_price, fill_price;
+    int64_t ask_quantity, bid_quantity, fill_quantity;
+    Broad(long double ap, long long aq, long double bp, long long bq,
+          long double fp, long long fq);
+};
 
 /// Stores a limit order
 ///
@@ -68,8 +78,8 @@ struct Limit_Order {
 
 /// Stores an exchange
 ///
-/// \p buy_orders keeps a list of th buy orders. Similarly, \p sell_orders keeps
-/// a list of sell orders.
+/// \p buy_orders keeps a list of the buy orders. Similarly, \p sell_orders
+/// keeps a list of sell orders.
 ///
 /// \p ask_prices maintains a count of the number of
 /// elements available at the given \p ask_price.
@@ -77,11 +87,10 @@ struct Limit_Order {
 /// given \p bid_price
 class Exchange {
   private:
-    std::set<Limit_Order> buy_orders, sell_orders;
-    int64_t ask_price, ask_quantity, bid_price, bid_quantity,
-        total_quantity_ask, total_quantity_bid;
-    std::map<int64_t, int64_t> ask_prices, bid_prices;
-
+    static std::set<Limit_Order> buy_orders, sell_orders;
+    int64_t ask_quantity, bid_quantity, total_quantity_ask, total_quantity_bid;
+    static std::map<int64_t, int64_t> ask_prices, bid_prices;
+    static std::queue<Broad> broadcast_queue;
     /// Sets \p bid_price and \p ask_price for a particular exchange.
     void Update_Market_Values();
 
@@ -99,10 +108,17 @@ class Exchange {
     ///
     /// If there are no fill, FP and FQ are left empty.
     /// If there are multiple fills, multiple lines are printed.
+    void Broadcast(Broad b);
+    /// Takes all elements of broadcast_queue and writes them into
+    /// "Broadcasts.txt".
+    void Broadcaster();
+#ifdef DEBUG
     void Broadcast(int64_t fill_price, int64_t fill_quantity);
     void Broadcast();
+#endif // DEBUG
 
   public:
+    int64_t ask_price, bid_price;
     /// Satisfies market orders from the current pool of orders present.
     ///
     /// \param buy kind of order. If `true`, it is a buy order, else a sell
