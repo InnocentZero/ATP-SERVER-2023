@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['exchange_0',['Exchange',['../classExchange.html',1,'Exchange'],['../classExchange.html#ae0c535ddace2066533e39bab4326257c',1,'Exchange::Exchange()'],['../classExchange.html#ae599da95b443371a360c355c5a2f7a31',1,'Exchange::Exchange(Exchange &amp;&amp;)=default'],['../classExchange.html#a277caf80359aa95a3e54b324bb8c07b5',1,'Exchange::Exchange(const Exchange &amp;)=default']]],
-  ['exchange_2ecpp_1',['Exchange.cpp',['../Exchange_8cpp.html',1,'']]],
-  ['exchange_2ehpp_2',['Exchange.hpp',['../Exchange_8hpp.html',1,'']]]
+  ['calcmean_0',['calcMean',['../Exchange__Extended_8cpp.html#a311998ba2adfdac639ac8c7ec9cedd13',1,'calcMean(std::deque&lt; long double &gt; &amp;v):&#160;Exchange_Extended.cpp'],['../Exchange__Extended_8hpp.html#a311998ba2adfdac639ac8c7ec9cedd13',1,'calcMean(std::deque&lt; long double &gt; &amp;v):&#160;Exchange_Extended.cpp']]],
+  ['calcsd_1',['calcSd',['../Exchange__Extended_8cpp.html#a31a5549b93066c4641a013e94f7bf0cb',1,'calcSd(std::deque&lt; long double &gt; &amp;v):&#160;Exchange_Extended.cpp'],['../Exchange__Extended_8hpp.html#a7cd39c3e1c3b6fb00d95c216c15b3b1b',1,'calcSd(std::deque&lt; double &gt; &amp;v):&#160;Exchange_Extended.hpp']]]
 ];

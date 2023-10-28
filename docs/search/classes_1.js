@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['limit_5forder_0',['Limit_Order',['../structLimit__Order.html',1,'']]]
+  ['exchange_0',['Exchange',['../classExchange.html',1,'']]]
 ];

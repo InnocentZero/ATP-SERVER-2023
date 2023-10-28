@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['start_5fclock_0',['Start_Clock',['../Exchange_8cpp.html#a913ebaa4caf1ed554e6671f3d757a10f',1,'Start_Clock():&#160;Exchange.cpp'],['../Exchange_8hpp.html#a913ebaa4caf1ed554e6671f3d757a10f',1,'Start_Clock():&#160;Exchange.cpp']]]
+  ['quantity_0',['quantity',['../randomBot_8cpp.html#aa0ced1d9ff8ecc2ec83d3fcc23d3cb8c',1,'randomBot.cpp']]],
+  ['quantitydist_1',['quantityDist',['../Exchange__Extended_8cpp.html#a6eaae88cd6d75dd0232fb4c2a3b03da9',1,'Exchange_Extended.cpp']]]
 ];

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['randombot_2ecpp_0',['randomBot.cpp',['../randomBot_8cpp.html',1,'']]],
-  ['randombot_2ehpp_1',['randomBot.hpp',['../randomBot_8hpp.html',1,'']]],
-  ['randomorder_2',['randomOrder',['../randomBot_8cpp.html#a30d986f9d79095b7a4cbee95f2ced752',1,'randomOrder(std::ostream &amp;os):&#160;randomBot.cpp'],['../randomBot_8hpp.html#a30d986f9d79095b7a4cbee95f2ced752',1,'randomOrder(std::ostream &amp;os):&#160;randomBot.cpp']]]
+  ['pickdist_0',['pickDist',['../Exchange__Extended_8cpp.html#a5deeff17158176ab0e76d10b08edbadf',1,'Exchange_Extended.cpp']]],
+  ['price_1',['price',['../structLimit__Order.html#a6b0afac599a363f554c4c001c9b96214',1,'Limit_Order::price()'],['../randomBot_8cpp.html#a6421d1d357891cc867d962537488dab1',1,'price():&#160;randomBot.cpp']]]
 ];

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['operator_3c_0',['operator&lt;',['../structLimit__Order.html#a9b6f7ffc31b2b6db469c8b9668493723',1,'Limit_Order']]],
-  ['operator_3d_1',['operator=',['../classExchange.html#ac750b3ce77d3811565bccf369a868f18',1,'Exchange::operator=(Exchange &amp;&amp;)=default'],['../classExchange.html#af6f0a37686b8515b67b729c3e8fd50c8',1,'Exchange::operator=(const Exchange &amp;)=default']]],
-  ['ordertype_2',['orderType',['../randomBot_8cpp.html#ac8997fdcf0b3c8f657f54e9b28f2c148',1,'randomBot.cpp']]]
+  ['main_0',['main',['../randomBot_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'randomBot.cpp']]],
+  ['match_1',['Match',['../classExchange.html#a547a1923a3b2deb9925fc9cc17cb0aa1',1,'Exchange']]]
 ];
